@@ -1,0 +1,24 @@
+data:
+  data_dir: '/Users/yuangao/Desktop/Final Project/data'
+  k_features: 1500
+  test_size: 0.2
+  cal_size: 0.0625
+  random_state: 42
+  rf_estimators: 150
+  pos_weight_multiplier: 1.5
+
+model:
+  dropout_rate: 0.45
+
+loss:
+  focal_gamma: 3.0
+  domain_loss_weight: 0.01
+
+train:
+  epochs: 6
+  batch_size: 32
+  lr: 0.0003
+  weight_decay: 0.0005
+  n_seeds: 5
+  fixed_threshold: 0.71
+  max_alpha: 0.1
