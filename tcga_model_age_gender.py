@@ -21,7 +21,6 @@ class ResidualBlock(nn.Module):
         out = self.dropout(out)
         out = self.fc2(out)
         out = self.ln2(out)
-        # Residual addition: Preserves the fidelity of original features, greatly alleviating gradient fragmentation
         return self.silu2(out + residual)
 
 class GradientReversalLayer(Function):
@@ -38,7 +37,6 @@ class GradientReversalLayer(Function):
 class DANN_MLP(nn.Module):
     def __init__(self, input_dim=4366, num_domains=2, num_genders=2, dropout_rate=0.3):
         super(DANN_MLP, self).__init__()
-        # Encoder: Uses a feature mapping layer + two residual blocks
         self.encoder = nn.Sequential(
             nn.Linear(input_dim, 256),
             nn.LayerNorm(256),
@@ -49,7 +47,7 @@ class DANN_MLP(nn.Module):
         )
         self.stage_head = nn.Sequential(
             nn.Linear(256, 64),
-            nn.LayerNorm(64), # Add LayerNorm in Head for enhanced stability
+            nn.LayerNorm(64),
             nn.SiLU(),
             nn.Dropout(0.1),
             nn.Linear(64, 1)
