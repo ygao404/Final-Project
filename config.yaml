@@ -1,5 +1,5 @@
 data:
-  data_dir: '/Users/yuangao/Desktop/Final Project/data'
+  data_dir: 'Final Project/data'
   k_features: 1500
   test_size: 0.2
   cal_size: 0.0625

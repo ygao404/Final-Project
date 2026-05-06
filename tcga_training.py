@@ -9,7 +9,6 @@ from sklearn.metrics import accuracy_score, classification_report, roc_curve, au
 from sklearn.preprocessing import label_binarize 
 import matplotlib.pyplot as plt 
 
-# Import customs modules
 from tcga_loss import BinaryFocalLoss
 from tcga_model import DANN_MLP
 from tcga_dataset import load_and_prepare_data
@@ -18,7 +17,6 @@ def train_one(train_loader, input_dim, num_domains, pos_weight_val, domain_class
     torch.manual_seed(seed)
     np.random.seed(seed)
     
-    # Load hyperparams from config
     epochs = config['train']['epochs']
     lr = float(config['train']['lr'])
     weight_decay = float(config['train']['weight_decay'])
@@ -69,7 +67,6 @@ def train_one(train_loader, input_dim, num_domains, pos_weight_val, domain_class
     return model
 
 def train_and_evaluate(config_path='config.yaml'):
-    # Read YAML config
     with open(config_path, 'r') as file:
         config = yaml.safe_load(file)
 
@@ -179,7 +176,7 @@ def train_and_evaluate(config_path='config.yaml'):
     plt.legend(loc="lower right")
     plt.grid(True, alpha=0.3)
     plt.savefig('roc_curve_stage_classification.png', dpi=300, bbox_inches='tight')
-    plt.close() # Keep clean environment
+    plt.close()
 
     y_domain_test_bin = label_binarize(y_domain_test, classes=range(num_domains))
     fpr_domain = dict()
